@@ -7,10 +7,26 @@ POST http://localhost:3000/usuarios
 Content-Type: application/json
 
 {
-    "nome": "Renato",
+    "nome": "Deadpool",
     "senha": "123",
-    "email": "renato@gmail.com",
-    "telefone": "48999216613"
+    "email": "pooly@gmail.com",
+    "telefone": "48923256969"
+}
+
+###
+
+DELETE http://localhost:3000/usuarios/
+###
+
+PUT http://localhost:3000/usuarios/11
+Content-Type: application/json
+
+{
+    "nome": "Marcos",
+    "senha": "123",
+    "email": "marquin@gmail.com",
+    "telefone": "48999216611",
+    "ativo": false
 }
 
 ###
@@ -27,22 +43,6 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/usuarios/
-
-###
-
-PUT http://localhost:3000/usuarios/11
-Content-Type: application/json
-
-{
-    "nome": "Marcos",
-    "senha": "123",
-    "email": "marquin@gmail.com",
-    "telefone": "48999216611"
-}
-
-###
-
 DELETE http://localhost:3000/categorias/
 
 ###
@@ -52,4 +52,28 @@ Content-Type: application/json
 
 {
     "nome": "Lanche"
+}
+
+
+###
+
+GET http://localhost:3000/receitas?page=1&limit=10
+
+###
+
+GET http://localhost:3000/receitas?page=1&limit=10&sort=nome&order=asc
+
+###
+
+POST http://localhost:3000/receitas
+Content-Type: application/json 
+
+{
+    "nome": "Bolo de baunilha",
+    "modo_preparo": "corta baunilha, mistura com trigo, leva ao forno",
+    "ingredientes": "baunilha, trigo, ovo",
+    "usuario_id": 18,
+    "categoria_id": 3,
+    "porcoes": 12,
+    "tempo_preparo_minutos": 45
 }
