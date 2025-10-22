@@ -69,6 +69,26 @@ server.put('/usuarios/:id', async (req, reply) => {
     }
 })
 
+
+server.get('/ordernarUsuarios', async (req, reply) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    const allowedOrder = ['id', 'nome', 'email', 'telefone', 'ativo', 'data_criacao']
+    const sort = allowedOrder.includes(req.query.sort) ? req.query.sort : 'id'
+    const order = req.query.order === 'desc' ? "DESC" : "ASC"
+
+    try {
+        const resultado = await pool.query(`SELECT * FROM USUARIO ORDER BY 
+            ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`)
+
+        const count = await pool.query("SELECT COUNT(*) FROM USUARIO")
+        reply.status(200).send({ data: resultado.rows, count: parseInt(count.rows[0].count) })
+    } catch(e) {
+        reply.status(500).send({ error: e.message })
+    }
+})
+
 // categorias
 
 server.get('/categorias', async (req, reply) => {
@@ -133,7 +153,7 @@ server.get('/receitas', async (req, reply) => {
 
     try {
         const resultado = await pool.query(`SELECT * FROM RECEITA ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`)
-        reply.send(resultado.rows)
+        reply.send({ data: resultado.rows, count: resultado.rows.length })
     } catch(e) {
         reply.status(500).send({ error: e.message })
     }

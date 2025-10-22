@@ -1,5 +1,9 @@
 ###
+
 GET http://localhost:3000/usuarios
+
+###
+GET http://localhost:3000/ordernarUsuarios?page=1&limit=5
 
 ###
 
